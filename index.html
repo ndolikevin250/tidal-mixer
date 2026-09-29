@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tidal Mixer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌊%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Tidal Mixer: a browser colour-mixing game. Match the target colour by blending two tubes.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <h1>Tidal Mixer</h1>
+  <p class="lede">Match the target by blending two colours, or mix freely in the sandbox.</p>
+  <div class="seg" id="play"><button data-g="match">Match</button><button data-g="daily">Daily</button><button data-g="sandbox">Sandbox</button></div>
+
+  <section class="card hero" aria-label="Mix formula">
+    <button class="orb on" id="oa" data-s="a" aria-label="Edit colour A"><i></i><b>coA</b><small id="ha"></small></button>
+    <div class="op">《》<small id="opm"></small></div>
+    <button class="orb" id="ob" data-s="b" aria-label="Edit colour B"><i></i><b>coB</b><small id="hb"></small></button>
+    <div class="eq">=</div>
+    <div class="orb res" id="om"><i></i><b>[ result ]</b><small id="hm"></small></div>
+  </section>
+
+  <section class="card gamebar" id="game" hidden>
+    <div class="tgt" id="tgt"><span>Match this colour</span><b id="tgtname"></b></div>
+    <div class="gstat"><span>Round <b id="rn"></b></span><span>Score <b id="tot"></b></span><span>Best <b id="best"></b></span></div>
+    <p class="hint" id="fb" aria-live="polite"></p>
+    <button class="btn go" id="lock">Lock in</button>
+  </section>
+
+  <div class="grid">
+    <section class="card" id="studio">
+      <h2>Studio</h2>
+      <div class="seg" id="slot"><button data-s="a">Colour A</button><button data-s="b">Colour B</button></div>
+      <div id="free"><canvas id="sv" width="640" height="400" aria-label="Saturation and brightness"></canvas>
+      <input type="range" id="hue" min="0" max="360" step="0.1" aria-label="Hue">
+      <div class="row">
+        <input id="hex" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Hex code">
+        <button class="btn" id="eye" hidden>Pick from screen</button>
+        <button class="btn" id="rnd">Random</button>
+        <button class="btn" id="swap">Swap A and B</button>
+      </div>
+      <div id="rgb"></div></div>
+      <div id="tubes" hidden><p class="hint">Tap tubes to fill A, then B. The target was mixed from two of them.</p><div id="tb"></div></div>
+    </section>
+
+    <section class="card" id="mixer">
+      <h2>Mix</h2>
+      <div class="seg" id="modes"></div>
+      <p class="hint" id="hint"></p>
+      <div class="ratio"><span>A <b id="pa"></b></span><span>B <b id="pb"></b></span></div>
+      <input type="range" id="t" min="0" max="100" aria-label="Amount of colour B">
+      <div class="out" id="out"><span id="outhex"></span><span id="outname"></span></div>
+      <dl class="data"><dt>RGB</dt><dd id="drgb"></dd><dt>HSL</dt><dd id="dhsl"></dd></dl>
+      <div id="steps"></div>
+      <div class="row"><button class="btn" id="copy">Copy hex</button><button class="btn" id="toa">Use as A</button><button class="btn" id="tob">Use as B</button></div>
+    </section>
+  </div>
+
+  <section class="card lib">
+    <h2>Named colours</h2>
+    <input id="q" type="search" placeholder="Search names, like coral or teal" aria-label="Search named colours">
+    <div id="lib"></div>
+  </section>
+  <section class="card lib" id="rec"><h2>Records</h2><dl class="data" id="recs"></dl><ol id="top"></ol><div class="row"><button class="btn" id="reset">Clear saved scores</button></div></section>
+  <p class="note">Scores are saved in this browser.</p>
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
